@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="lt">
-<head>
-    <meta charset="UTF-8">
-    <title>Autoservisas</title>
-</head>
-<body>
-    <h1>Sveiki atvykę į Autoservisą!</h1>
-    <p>Čia bus mūsų Django projektas.</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Autoservisas{% endblock %}
+
+{% block content %}
+<h1>Autoserviso statistika</h1>
+
+<ul>
+    <li><strong>Paslaugų:</strong> {{ service_count }}</li>
+    <li><strong>Automobilių:</strong> {{ car_count }}</li>
+    <li><strong>Užsakymų:</strong> {{ order_count }}</li>
+</ul>
+{% endblock %}

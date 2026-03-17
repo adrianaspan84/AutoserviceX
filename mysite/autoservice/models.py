@@ -38,8 +38,20 @@ class Car(models.Model):
 # UŽSAKYMAS
 # -------------------------
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ("naujas", "Naujas"),
+        ("vykdomas", "Vykdomas"),
+        ("baigtas", "Baigtas"),
+        ("atšauktas", "Atšauktas"),
+    ]
     date = models.DateField(verbose_name="Data")
     car = models.ForeignKey("Car", verbose_name="Automobilis", on_delete=models.CASCADE)
+    status = models.CharField(
+        verbose_name="Statusas",
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="naujas"
+    )
 
     class Meta:
         verbose_name = "Užsakymas"
