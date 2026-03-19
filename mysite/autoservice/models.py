@@ -8,6 +8,7 @@ class Service(models.Model):
     name = models.CharField(verbose_name="Pavadinimas", max_length=200)
     price = models.FloatField(verbose_name="Kaina")
 
+
     class Meta:
         verbose_name = "Paslauga"
         verbose_name_plural = "Paslaugos"
@@ -20,7 +21,7 @@ class Service(models.Model):
 # AUTOMOBILIS
 # -------------------------
 class Car(models.Model):
-    make = models.CharField(verbose_name="Markė", max_length=100)
+    make = models.CharField(verbose_name="Gamintojas", max_length=100)
     model = models.CharField(verbose_name="Modelis", max_length=100)
     license_plate = models.CharField(verbose_name="Valstybinis numeris", max_length=20)
     vin_code = models.CharField(verbose_name="VIN kodas", max_length=50)
@@ -42,8 +43,9 @@ class Order(models.Model):
         ("naujas", "Naujas"),
         ("vykdomas", "Vykdomas"),
         ("baigtas", "Baigtas"),
-        ("atšauktas", "Atšauktas"),
+        ("atsauktas", "Atšauktas"),
     ]
+
     date = models.DateField(verbose_name="Data")
     car = models.ForeignKey("Car", verbose_name="Automobilis", on_delete=models.CASCADE)
     status = models.CharField(

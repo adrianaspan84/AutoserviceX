@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Užsakymas{% endblock %}
+
+{% block content %}
+<h1>Užsakymas #{{ order.id }}</h1>
+
+<ul class="list-group mb-3">
+    <li class="list-group-item"><strong>Automobilis:</strong> {{ order.car }}</li>
+    <li class="list-group-item"><strong>Data:</strong> {{ order.date }}</li>
+    <li class="list-group-item"><strong>Statusas:</strong> {{ order.get_status_display }}</li>
+</ul>
+
+<h2>Eilutės</h2>
+
+{% if order.lines.all %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Paslauga</th>
+            <th>Kiekis</th>
+            <th>Suma</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for line in order.lines.all %}
+        <tr>
+            <td>{{ line.service.name }}</td>
+            <td>{{ line.quantity }}</td>
+            <td>{{ line.line_sum }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nėra eilučių.</p>
+{% endif %}
+
+<h3>Bendra suma: {{ order.total }}</h3>
+
+<a href="{% url 'uzsakymai' %}" class="btn btn-secondary mt-3">← Atgal į užsakymus</a>
+{% endblock %}

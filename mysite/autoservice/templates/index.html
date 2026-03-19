@@ -1,12 +1,36 @@
 {% extends "base.html" %}
-{% block title %}Autoservisas{% endblock %}
+{% block title %}Pradžia{% endblock %}
 
 {% block content %}
-<h1>Autoserviso statistika</h1>
+<h1 style="font-size: 55px;" class="mb-4 text-center">Autoserviso statistika</h1>
 
-<ul>
-    <li><strong>Paslaugų:</strong> {{ service_count }}</li>
-    <li><strong>Automobilių:</strong> {{ car_count }}</li>
-    <li><strong>Užsakymų:</strong> {{ order_count }}</li>
-</ul>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card p-4 text-center">
+            <i class="fa-solid fa-screwdriver-wrench fa-3x mb-3 text-primary"></i>
+            <h3 class="mb-2">Paslaugų</h3>
+            <p class="display-5 fw-bold text-primary">{{ service_count }}</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-4 text-center">
+            <i class="fa-solid fa-car fa-3x mb-3 text-primary"></i>
+            <h3 class="mb-2">Automobilių</h3>
+            <p class="display-5 fw-bold text-primary">{{ car_count }}</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-4 text-center">
+            <i class="fa-solid fa-file-invoice fa-3x mb-3 text-primary"></i>
+            <h3 class="mb-2">Užsakymų</h3>
+            <p class="display-5 fw-bold text-primary">{{ order_count }}</p>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

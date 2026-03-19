@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Užsakymai{% endblock %}
+
+{% block content %}
+<h1>Užsakymai</h1>
+
+{% if orders %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nr.</th>
+            <th>Automobilis</th>
+            <th>Data</th>
+            <th>Statusas</th>
+            <th>Bendra suma</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+        <tr>
+            <td>
+                <a href="{% url 'uzsakymas' order.id %}">
+                    #{{ order.id }}
+                </a>
+            </td>
+            <td>{{ order.car }}</td>
+            <td>{{ order.date }}</td>
+            <td>{{ order.get_status_display }}</td>
+            <td>{{ order.total }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nėra užsakymų.</p>
+{% endif %}
+{% endblock %}

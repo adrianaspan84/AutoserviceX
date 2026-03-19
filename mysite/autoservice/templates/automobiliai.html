@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Automobiliai{% endblock %}
+
+{% block content %}
+<h1>Automobiliai</h1>
+
+{% if cars %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Gamintojas</th>
+            <th>Modelis</th>
+            <th>Klientas</th>
+            <th>Valst. nr.</th>
+            <th>VIN</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for car in cars %}
+        <tr>
+            <td>
+                <a href="{% url 'automobilis' car.id %}">
+                    {{ car.make }}
+                </a>
+            </td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.client_name }}</td>
+            <td>{{ car.license_plate }}</td>
+            <td>{{ car.vin_code }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nėra registruotų automobilių.</p>
+{% endif %}
+{% endblock %}

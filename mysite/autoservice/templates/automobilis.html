@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Automobilis{% endblock %}
+
+{% block content %}
+<h1>{{ car.make }} {{ car.model }}</h1>
+
+<ul class="list-group mb-3">
+    <li class="list-group-item"><strong>Klientas:</strong> {{ car.client_name }}</li>
+    <li class="list-group-item"><strong>Valstybinis numeris:</strong> {{ car.license_plate }}</li>
+    <li class="list-group-item"><strong>VIN kodas:</strong> {{ car.vin_code }}</li>
+</ul>
+
+<a href="{% url 'automobiliai' %}" class="btn btn-secondary">← Atgal į automobilius</a>
+{% endblock %}
