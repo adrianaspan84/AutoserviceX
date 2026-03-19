@@ -12,3 +12,7 @@
 
 <a href="{% url 'automobiliai' %}" class="btn btn-secondary">← Atgal į automobilius</a>
 {% endblock %}
+
+{% if car.photo %}
+    <img src="{{ car.photo.url }}" alt="Nuotrauka" class="img-fluid mb-3">
+{% endif %}

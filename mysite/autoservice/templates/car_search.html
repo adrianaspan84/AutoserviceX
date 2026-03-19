@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Automobilių paieška{% endblock %}
+
+{% block content %}
+<h1>Automobilių paieška</h1>
+
+<form method="get" action="{% url 'car_search' %}" class="mb-3">
+    <input type="text" name="q" value="{{ query }}" class="form-control"
+           placeholder="Ieškoti pagal markę, modelį, savininką, numerį ar VIN">
+</form>
+
+{% if cars %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Gamintojas</th>
+            <th>Modelis</th>
+            <th>Klientas</th>
+            <th>Valst. nr.</th>
+            <th>VIN</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for car in cars %}
+        <tr>
+            <td><a href="{% url 'automobilis' car.id %}">{{ car.make }}</a></td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.client_name }}</td>
+            <td>{{ car.license_plate }}</td>
+            <td>{{ car.vin_code }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nerasta jokių automobilių pagal užklausą: <strong>{{ query }}</strong></p>
+{% endif %}
+
+{% endblock %}

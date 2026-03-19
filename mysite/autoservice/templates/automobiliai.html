@@ -4,10 +4,16 @@
 {% block content %}
 <h1>Automobiliai</h1>
 
+<form method="get" action="{% url 'car_search' %}" class="mb-3">
+    <input type="text" name="q" class="form-control" placeholder="Ieškoti pagal markę, modelį, savininką, numerį ar VIN">
+</form>
+
+
 {% if cars %}
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Nuotrauka</th>
             <th>Gamintojas</th>
             <th>Modelis</th>
             <th>Klientas</th>
@@ -18,6 +24,13 @@
     <tbody>
     {% for car in cars %}
         <tr>
+            <td>
+                {% if car.photo %}
+                    <img src="{{ car.photo.url }}" alt="Nuotrauka" style="height:60px;">
+                {% else %}
+                    —
+                {% endif %}
+            </td>
             <td>
                 <a href="{% url 'automobilis' car.id %}">
                     {{ car.make }}
@@ -34,4 +47,38 @@
 {% else %}
 <p>Nėra registruotų automobilių.</p>
 {% endif %}
+
+<!-- Puslapiavimas -->
+{% if cars.has_other_pages %}
+<nav>
+    <ul class="pagination justify-content-center">
+
+        {% if cars.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ cars.previous_page_number }}">Atgal</a>
+            </li>
+        {% endif %}
+
+        {% for num in cars.paginator.page_range %}
+            {% if cars.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if cars.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ cars.next_page_number }}">Pirmyn</a>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
+
 {% endblock %}
