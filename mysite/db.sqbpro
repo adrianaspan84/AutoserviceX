@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="db.sqlite3" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2936"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="auth_group" custom_title="0" dock_id="1" table="4,10:mainauth_group"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000011300ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">INSERT INTO autoservice_car (make, model, license_plate, vin_code, client_name) VALUES
+('Audi', 'A6', 'LTA001', 'WAUZZZ4G7DN00001', 'Arvydas Rimkus'),
+('Audi', 'Q5', 'LTA002', 'WAUZZZ8R3DA00002', 'Mantas Žemaitis'),
+('BMW', 'X5', 'LTA003', 'WBAKS81060C00003', 'Dainius Šimaitis'),
+('BMW', '320d', 'LTA004', 'WBA3D31060F00004', 'Evaldas Jonauskas'),
+('Mercedes', 'C200', 'LTA005', 'WDD2040481A00005', 'Ričardas Vasiliauskas'),
+('Mercedes', 'E220', 'LTA006', 'WDD2120051A00006', 'Gintaras Morkūnas'),
+('Volkswagen', 'Tiguan', 'LTA007', 'WVGZZZ5NZDW00007', 'Saulius Kvedaras'),
+('Volkswagen', 'Polo', 'LTA008', 'WVWZZZ6RZDY00008', 'Aurimas Pukys'),
+('Toyota', 'Yaris', 'LTA009', 'VNKKL3D360A00009', 'Lina Petronytė'),
+('Toyota', 'RAV4', 'LTA010', 'JTMBD33V60D00010', 'Aistė Grigaitė'),
+('Honda', 'Accord', 'LTA011', 'JHMCP26708C00011', 'Rūta Venslovaitė'),
+('Honda', 'Jazz', 'LTA012', 'JHMGD18407S00012', 'Eglė Jonaitytė'),
+('Nissan', 'Juke', 'LTA013', 'SJNFAF15U0000013', 'Tomas Kavaliauskas'),
+('Nissan', 'Leaf', 'LTA014', '1N4AZ0CP3DC00014', 'Justina Markevičiūtė'),
+('Mazda', 'CX-5', 'LTA015', 'JMZKE2CY60100015', 'Karolis Gudauskas'),
+('Mazda', 'MX-5', 'LTA016', 'JMZNB18P20000016', 'Edvinas Kairys'),
+('Hyundai', 'Elantra', 'LTA017', 'KMHDH41CBFU00017', 'Monika Šalkauskaitė'),
+('Hyundai', 'Santa Fe', 'LTA018', 'KMHSU81XDCU00018', 'Greta Vaitkutė'),
+('Kia', 'Rio', 'LTA019', 'KNADN512AEU00019', 'Jonas Kavolis'),
+('Kia', 'Sorento', 'LTA020', 'KNAKU814BHU00020', 'Milda Žukauskaitė');
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

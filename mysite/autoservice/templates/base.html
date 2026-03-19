@@ -23,16 +23,28 @@
 
         <div>
             <ul class="navbar-nav">
+
+                <!-- Automobiliai -->
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'automobiliai' %}">Automobiliai</a>
+                    <a class="nav-link text-white {% if '/automobiliai' in request.path %}active fw-bold{% endif %}"
+                       href="{% url 'automobiliai' %}">
+                        Automobiliai
+                    </a>
                 </li>
+
+                <!-- Užsakymai -->
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'uzsakymai' %}">Užsakymai</a>
+                    <a class="nav-link text-white {% if '/uzsakymai' in request.path %}active fw-bold{% endif %}"
+                       href="{% url 'uzsakymai' %}">
+                        Užsakymai
+                    </a>
                 </li>
+
             </ul>
         </div>
     </div>
 </nav>
+
 
 <!-- Puslapio turinys -->
 <div class="container mt-4">

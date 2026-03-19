@@ -5,7 +5,7 @@ from .models import Service, Car, Order, OrderLine
 # --- Užsakymo eilutės inline ---
 class OrderLineInline(admin.TabularInline):
     model = OrderLine
-    extra = 0
+    extra = 1
 
 
 # --- Paslaugos ---
@@ -26,13 +26,15 @@ class OrderLineAdmin(admin.ModelAdmin):
 
 
 # --- Užsakymai ---
+@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["id", "car", "date", "total"]
+    list_display = ("id", "car", "date", "status", "total")
     inlines = [OrderLineInline]
 
 
 # --- Registracija ---
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Car, CarAdmin)
-admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderLine, OrderLineAdmin)
+
+

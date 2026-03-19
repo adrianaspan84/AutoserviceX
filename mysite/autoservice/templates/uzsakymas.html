@@ -5,14 +5,20 @@
 <h1>Užsakymas #{{ order.id }}</h1>
 
 <ul class="list-group mb-3">
-    <li class="list-group-item"><strong>Automobilis:</strong> {{ order.car }}</li>
-    <li class="list-group-item"><strong>Data:</strong> {{ order.date }}</li>
-    <li class="list-group-item"><strong>Statusas:</strong> {{ order.get_status_display }}</li>
+    <li class="list-group-item">
+        <strong>Automobilis:</strong> {{ order.car }}
+    </li>
+    <li class="list-group-item">
+        <strong>Data:</strong> {{ order.date }}
+    </li>
+    <li class="list-group-item">
+        <strong>Statusas:</strong> {{ order.get_status_display }}
+    </li>
 </ul>
 
 <h2>Eilutės</h2>
 
-{% if order.lines.all %}
+{% if order.lines.all.count %}
 <table class="table">
     <thead>
         <tr>

@@ -73,17 +73,20 @@ class Order(models.Model):
 # -------------------------
 class OrderLine(models.Model):
     order = models.ForeignKey(
-        "Order",
-        verbose_name="Užsakymas",
+        Order,
+        related_name="lines",
         on_delete=models.CASCADE,
-        related_name="lines"
+        verbose_name="Užsakymas"
     )
     service = models.ForeignKey(
-        "Service",
-        verbose_name="Paslauga",
-        on_delete=models.CASCADE
+        Service,
+        on_delete=models.CASCADE,
+        verbose_name="Paslauga"
     )
-    quantity = models.IntegerField(verbose_name="Kiekis")
+    quantity = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Kiekis"
+    )
 
     class Meta:
         verbose_name = "Užsakymo eilutė"
@@ -95,4 +98,4 @@ class OrderLine(models.Model):
     line_sum.short_description = "Suma"
 
     def __str__(self):
-        return f"{self.service.name} x {self.quantity}"
+        return f"{self.service.name} × {self.quantity}"
