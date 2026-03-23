@@ -1,36 +1,52 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Pradžia{% endblock %}
 
 {% block content %}
 <h1 style="font-size: 55px;" class="mb-4 text-center">Autoserviso statistika</h1>
 
-
 <div class="row g-4">
 
+    <!-- Paslaugos -->
     <div class="col-md-4">
-        <div class="card p-4 text-center">
-            <i class="fa-solid fa-screwdriver-wrench fa-3x mb-3 text-primary"></i>
-            <h3 class="mb-2">Paslaugų</h3>
-            <p class="display-5 fw-bold text-primary">{{ service_count }}</p>
-        </div>
+        <a href="{% url 'services' %}" class="stat-link">
+            <div class="card p-4 text-center">
+                <i class="fa-solid fa-screwdriver-wrench fa-3x mb-3 text-primary"></i>
+                <h3 class="mb-2 text-white">Paslaugų</h3>
+                <p class="display-5 fw-bold text-primary">{{ service_count }}</p>
+            </div>
+        </a>
+
+        <img src="{% static 'img/wheel.png' %}" class="rotating-wheel">
     </div>
 
+    <!-- Automobiliai -->
     <div class="col-md-4">
-        <div class="card p-4 text-center">
-            <i class="fa-solid fa-car fa-3x mb-3 text-primary"></i>
-            <h3 class="mb-2">Automobilių</h3>
-            <p class="display-5 fw-bold text-primary">{{ car_count }}</p>
-        </div>
+        <a href="{% url 'automobiliai' %}" class="stat-link">
+            <div class="card p-4 text-center">
+                <i class="fa-solid fa-car fa-3x mb-3 text-primary"></i>
+                <h3 class="mb-2 text-white">Automobilių</h3>
+                <p class="display-5 fw-bold text-primary">{{ car_count }}</p>
+            </div>
+        </a>
+
+        <img src="{% static 'img/wheel.png' %}" class="rotating-wheel">
     </div>
 
+    <!-- Užsakymai -->
     <div class="col-md-4">
-        <div class="card p-4 text-center">
-            <i class="fa-solid fa-file-invoice fa-3x mb-3 text-primary"></i>
-            <h3 class="mb-2">Užsakymų</h3>
-            <p class="display-5 fw-bold text-primary">{{ order_count }}</p>
-        </div>
+        <a href="{% url 'uzsakymai' %}" class="stat-link">
+            <div class="card p-4 text-center">
+                <i class="fa-solid fa-file-invoice fa-3x mb-3 text-primary"></i>
+                <h3 class="mb-2 text-white">Užsakymų</h3>
+                <p class="display-5 fw-bold text-primary">{{ order_count }}</p>
+            </div>
+        </a>
+
+        <img src="{% static 'img/wheel.png' %}" class="rotating-wheel">
     </div>
 
 </div>
+
 
 {% endblock %}

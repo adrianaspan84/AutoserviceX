@@ -1,60 +1,96 @@
-/* Švelnus fonas */
+/* === PAGRINDINIS FONAS === */
 body {
-    background: linear-gradient(135deg, #eef5ff 0%, #dce9ff 100%);
-    font-family: "Segoe UI", sans-serif;
-    min-height: 100vh;
+    background: #0F172B !important; /* tamsus fonas */
+    font-family: "Segoe UI", sans-serif !important;
+    color: #FFFFFF !important;
 }
 
-/* Antraštės */
-h1, h2, h3 {
-    color: #0d6efd;
-    font-weight: 600;
-}
-
-/* Kortelės */
-.card {
-    border: none;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    animation: fadeInUp 0.6s ease forwards;
-    opacity: 0;
-}
-
-@keyframes fadeInUp {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-}
-
-/* Lentelių antraštės */
-.table thead {
-    background-color: #0d6efd;
-    color: white;
-}
-
-.table tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-.table tbody tr:hover {
-    background-color: #fff4e0;
-}
-
-/* Navigacijos hover */
+/* === VIRŠUTINĖ MENIU JUOSTA (tamsesnė bordo) === */
 .navbar {
-    transition: background-color 0.3s ease;
+    background: #3a0010 !important; /* tamsesnė bordo */
+    padding: 15px 0 !important;
 }
 
-.navbar a.nav-link {
-    transition: color 0.3s ease;
+/* === NAVBAR BRAND (PAGRINDINIS) === */
+.navbar-brand {
+    color: #ffffff !important;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: 0.3s ease;
 }
 
-.navbar a.nav-link:hover {
-    color: #ffdd99 !important;
+.navbar-brand:hover {
+    color: #FEA116 !important;
+    text-shadow: 0 0 10px rgba(254, 161, 22, 0.8); /* švytėjimas */
+}
+
+/* === NAVBAR LINKAI === */
+.navbar .nav-link {
+    color: #ffffff !important;
+    transition: 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #FEA116 !important;
+    text-shadow: 0 0 10px rgba(254, 161, 22, 0.8); /* švytėjimas */
+}
+
+/* === STATISTIKOS KORTELĖS (tamsesnė bordo) === */
+.card {
+    background: #3a0010 !important; /* tamsesnė bordo */
+    color: #FFFFFF !important;
+    border-radius: 14px !important;
+    border: none !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25) !important;
+    padding: 25px !important;
+    transition: 0.3s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35) !important;
+}
+
+/* Kad statistikos kortelių nuorodos neištemptų stulpelių */
+.stat-link {
+    display: block;
+    text-decoration: none;
+}
+
+/* === IKONOS KORTELĖSE === */
+.card i {
+    color: #FEA116 !important; /* auksinė */
+    font-size: 36px !important;
+}
+
+/* === LENTELIŲ BORDO RĖMELIS === */
+.table {
+    border: 2px solid #3a0010 !important; /* bordo rėmelis */
+    border-radius: 10px !important;
+    overflow: hidden; /* kad kampai būtų apvalūs */
+}
+
+/* Lentelės viršutinė juosta (thead) */
+.table thead {
+    background-color: #3a0010 !important; /* bordo */
+    color: #ffffff !important;
+}
+
+/* Eilučių hover efektas */
+.table tbody tr:hover {
+    background-color: rgba(254, 161, 22, 0.1) !important; /* auksinis švytėjimas */
+}
+
+/* === BESISUKANTIS AUTOMOBILIO RATO PAVEIKSLIUKAS === */
+.rotating-wheel {
+    width: 180px;
+    height: 180px;
+    margin: 40px auto;
+    display: block;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }

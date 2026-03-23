@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Service, Car, Order
 
+def services(request):
+    services = Service.objects.all()
+    return render(request, "services.html", {"services": services})
 
 def index(request):
     context = {
