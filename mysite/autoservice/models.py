@@ -8,7 +8,6 @@ class Service(models.Model):
     name = models.CharField(verbose_name="Pavadinimas", max_length=200)
     price = models.FloatField(verbose_name="Kaina")
 
-
     class Meta:
         verbose_name = "Paslauga"
         verbose_name_plural = "Paslaugos"
@@ -73,6 +72,12 @@ class Order(models.Model):
 # UŽSAKYMO EILUTĖ
 # -------------------------
 class OrderLine(models.Model):
+    STATUS_CHOICES = [
+        ("laukiama", "Laukiama"),
+        ("vykdoma", "Vykdoma"),
+        ("baigta", "Baigta"),
+    ]
+
     order = models.ForeignKey(
         Order,
         related_name="lines",
@@ -88,6 +93,12 @@ class OrderLine(models.Model):
         default=1,
         verbose_name="Kiekis"
     )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="laukiama",
+        verbose_name="Paslaugos statusas"
+    )
 
     class Meta:
         verbose_name = "Užsakymo eilutė"
@@ -95,8 +106,6 @@ class OrderLine(models.Model):
 
     def line_sum(self):
         return self.quantity * self.service.price
-
-    line_sum.short_description = "Suma"
 
     def __str__(self):
         return f"{self.service.name} × {self.quantity}"
