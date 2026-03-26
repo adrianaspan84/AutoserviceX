@@ -1,16 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Paslaugos{% endblock %}
 
 {% block content %}
-<h1 class="text-center mb-4">Paslaugų sąrašas</h1>
 
-<table class="table table-dark table-striped">
+<h1 class="text-center mb-4" style="font-size: 50px;">Paslaugų sąrašas</h1>
+
+{% if services %}
+<div class="table-responsive fade-in">
+<table class="table glass-table">
     <thead>
         <tr>
             <th>Pavadinimas</th>
             <th>Kaina (€)</th>
         </tr>
     </thead>
+
     <tbody>
         {% for s in services %}
         <tr>
@@ -20,5 +25,10 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
+
+{% else %}
+<p class="text-center mt-4">Nėra paslaugų.</p>
+{% endif %}
 
 {% endblock %}

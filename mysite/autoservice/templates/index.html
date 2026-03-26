@@ -3,6 +3,7 @@
 {% block title %}Pradžia{% endblock %}
 
 {% block content %}
+
 <h1 style="font-size: 55px;" class="mb-4 text-center">Autoserviso statistika</h1>
 
 <div class="row g-4">
@@ -16,8 +17,6 @@
                 <p class="display-5 fw-bold text-primary">{{ service_count }}</p>
             </div>
         </a>
-
-        <img src="{% static 'img/wheel.png' %}" class="rotating-wheel">
     </div>
 
     <!-- Automobiliai -->
@@ -29,8 +28,6 @@
                 <p class="display-5 fw-bold text-primary">{{ car_count }}</p>
             </div>
         </a>
-
-        <img src="{% static 'img/wheel.png' %}" class="rotating-wheel">
     </div>
 
     <!-- Užsakymai -->
@@ -42,11 +39,15 @@
                 <p class="display-5 fw-bold text-primary">{{ order_count }}</p>
             </div>
         </a>
-
-        <img src="{% static 'img/wheel.png' %}" class="rotating-wheel">
     </div>
 
 </div>
 
+<!-- Apsilankymų skaičius -->
+<div class="text-center mt-5 fade-in">
+    <p style="font-size: 20px; color: #7dd3fc;">
+        Šiame puslapyje lankotės <strong>{{ num_visits }}</strong>-ą kartą.
+    </p>
+</div>
 
 {% endblock %}

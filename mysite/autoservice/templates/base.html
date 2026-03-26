@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -8,57 +9,69 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
-    <!-- Static CSS -->
-    {% load static %}
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
 
-<!-- Modernus navbar -->
-<nav class="navbar navbar-expand-lg shadow-sm" style="background-color: #0d6efd;">
-    <div class="container">
-        <a class="navbar-brand text-white fw-bold" href="{% url 'index' %}">PAGRINDINIS</a>
+<!-- Bootstrap JS (dropdown veikimui būtinas) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-        <div>
-              <ul class="navbar-nav">
+<!-- Aurora Background -->
+<canvas id="auroraCanvas"></canvas>
 
-            <!-- Automobiliai -->
-            <li class="nav-item">
-                <a class="nav-link text-white {% if '/automobiliai' in request.path %}active fw-bold{% endif %}"
-                   href="{% url 'automobiliai' %}">
-                    Automobiliai
-                </a>
-            </li>
+<nav class="glass-nav">
+    <img src="{% static 'img/wheel.png' %}" class="nav-wheel" alt="logo">
 
-            <!-- Užsakymai -->
-            <li class="nav-item">
-                <a class="nav-link text-white {% if '/uzsakymai' in request.path %}active fw-bold{% endif %}"
-                   href="{% url 'uzsakymai' %}">
-                    Užsakymai
-                </a>
-            </li>
+    <a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Pradžia</a>
+    <a class="{% if '/automobiliai' in request.path %}active{% endif %}" href="{% url 'automobiliai' %}">Automobiliai</a>
+    <a class="{% if '/uzsakymai' in request.path %}active{% endif %}" href="{% url 'uzsakymai' %}">Užsakymai</a>
+    <a class="{% if '/services' in request.path %}active{% endif %}" href="{% url 'services' %}">Paslaugos</a>
 
-            <!-- Paslaugos -->
-            <li class="nav-item">
-                <a class="nav-link text-white {% if '/paslaugos' in request.path %}active fw-bold{% endif %}"
-                   href="{% url 'services' %}">
-                    Paslaugos
-                </a>
-            </li>
+    <div class="ms-auto d-flex align-items-center">
 
-        </ul>
+        {% if user.is_authenticated %}
 
+        <div class="dropdown">
+            <a class="d-flex align-items-center text-light dropdown-toggle"
+               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+               style="text-decoration:none; cursor:pointer;">
+
+                <!-- Standartinė Bootstrap user ikona -->
+                <i class="fa-solid fa-circle-user"
+                   style="font-size: 28px; margin-right: 8px;"></i>
+
+                {{ user.username }}
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end glass-card p-2" style="min-width: 180px;">
+                <li><a class="dropdown-item" href="{% url 'password_change' %}">Keisti slaptažodį</a></li>
+                <li><hr class="dropdown-divider"></li>
+
+                <!-- 🔥 NAUJAS VEIKIANTIS LOGOUT -->
+               <li><a class="dropdown-item text-danger" href="/logout/">Atsijungti</a></li>
+
+            </ul>
         </div>
+
+        {% else %}
+
+        <a class="{% if '/accounts/login' in request.path %}active{% endif %}" href="{% url 'login' %}">
+            Prisijungti
+        </a>
+
+        {% endif %}
     </div>
+
 </nav>
 
-
-<!-- Puslapio turinys -->
-<div class="container mt-4">
+<main class="content container">
     {% block content %}{% endblock %}
-</div>
+</main>
+
+<script src="{% static 'js/aurora.js' %}"></script>
+<script src="{% static 'js/cars.js' %}"></script>
 
 </body>
 </html>

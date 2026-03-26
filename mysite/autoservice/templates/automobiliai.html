@@ -1,16 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Automobiliai{% endblock %}
 
 {% block content %}
-<h1>Automobiliai</h1>
 
-<form method="get" action="{% url 'car_search' %}" class="mb-3">
-    <input type="text" name="q" class="form-control" placeholder="Ieškoti pagal markę, modelį, savininką, numerį ar VIN">
+<h1 class="text-center mb-4" style="font-size: 50px;">Automobiliai</h1>
+
+<!-- Paieškos forma -->
+<form method="get" action="{% url 'car_search' %}" class="mb-4">
+    <input type="text" name="q" class="form-control"
+           placeholder="Ieškoti pagal markę, modelį, savininką, numerį ar VIN">
 </form>
 
-
 {% if cars %}
-<table class="table table-dark table-striped">
+<!-- Permatoma lentelė -->
+<div class="table-responsive fade-in">
+<table class="table glass-table">
     <thead>
         <tr>
             <th>Nuotrauka</th>
@@ -21,21 +26,24 @@
             <th>VIN</th>
         </tr>
     </thead>
+
     <tbody>
     {% for car in cars %}
         <tr>
             <td>
                 {% if car.photo %}
-                    <img src="{{ car.photo.url }}" alt="Nuotrauka" style="height:60px;">
+                    <img src="{{ car.photo.url }}" alt="Nuotrauka" style="height:70px; border-radius:6px;">
                 {% else %}
                     —
                 {% endif %}
             </td>
+
             <td>
-                <a href="{% url 'automobilis' car.id %}">
+                <a href="{% url 'automobilis' car.id %}" class="table-link">
                     {{ car.make }}
                 </a>
             </td>
+
             <td>{{ car.model }}</td>
             <td>{{ car.client_name }}</td>
             <td>{{ car.license_plate }}</td>
@@ -44,36 +52,38 @@
     {% endfor %}
     </tbody>
 </table>
+</div>
+
 {% else %}
-<p>Nėra registruotų automobilių.</p>
+<p class="text-center mt-4">Nėra registruotų automobilių.</p>
 {% endif %}
 
 <!-- Puslapiavimas -->
 {% if cars.has_other_pages %}
 <nav>
-    <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center mt-4">
 
         {% if cars.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ cars.previous_page_number }}">Atgal</a>
+                <a class="page-link glass-page" href="?page={{ cars.previous_page_number }}">Atgal</a>
             </li>
         {% endif %}
 
         {% for num in cars.paginator.page_range %}
             {% if cars.number == num %}
                 <li class="page-item active">
-                    <span class="page-link">{{ num }}</span>
+                    <span class="page-link glass-page-active">{{ num }}</span>
                 </li>
             {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    <a class="page-link glass-page" href="?page={{ num }}">{{ num }}</a>
                 </li>
             {% endif %}
         {% endfor %}
 
         {% if cars.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ cars.next_page_number }}">Pirmyn</a>
+                <a class="page-link glass-page" href="?page={{ cars.next_page_number }}">Pirmyn</a>
             </li>
         {% endif %}
 

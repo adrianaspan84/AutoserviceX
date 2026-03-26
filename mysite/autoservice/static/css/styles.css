@@ -1,96 +1,175 @@
-/* === PAGRINDINIS FONAS === */
+/* === AURORA CANVAS FONAS (NAKTINIS) === */
+#auroraCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* === BENDRAS PUSLAPIO STILIUS === */
 body {
-    background: #0F172B !important; /* tamsus fonas */
+    background: #02040a !important;
     font-family: "Segoe UI", sans-serif !important;
     color: #FFFFFF !important;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
-/* === VIRŠUTINĖ MENIU JUOSTA (tamsesnė bordo) === */
-.navbar {
-    background: #3a0010 !important; /* tamsesnė bordo */
-    padding: 15px 0 !important;
+/* === VISOS NUORODOS BE PABRAUKIMO (GLOBAL FIX) === */
+a, a:visited, a:hover, a:active {
+    text-decoration: none !important;
 }
 
-/* === NAVBAR BRAND (PAGRINDINIS) === */
-.navbar-brand {
+/* === GLASS NAVBAR === */
+.glass-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    backdrop-filter: blur(14px);
+    background: rgba(10, 10, 25, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 10;
+}
+
+.glass-nav a {
     color: #ffffff !important;
-    font-weight: 700;
-    letter-spacing: 2px;
-    transition: 0.3s ease;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.navbar-brand:hover {
-    color: #FEA116 !important;
-    text-shadow: 0 0 10px rgba(254, 161, 22, 0.8); /* švytėjimas */
+.glass-nav a:hover {
+    color: #7dd3fc !important;
+    text-shadow: 0 0 10px rgba(125, 211, 252, 0.8);
 }
 
-/* === NAVBAR LINKAI === */
-.navbar .nav-link {
-    color: #ffffff !important;
-    transition: 0.3s ease;
+/* === NAVBAR LOGOTIPAS SU GLOW === */
+.nav-wheel {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    animation: spin 3s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 1))
+            drop-shadow(0 0 16px rgba(0, 200, 255, 0.8))
+            drop-shadow(0 0 28px rgba(0, 150, 255, 0.6));
 }
 
-.navbar .nav-link:hover {
-    color: #FEA116 !important;
-    text-shadow: 0 0 10px rgba(254, 161, 22, 0.8); /* švytėjimas */
+/* === TURINIO BLOKAS === */
+.content {
+    margin-top: 120px;
+    padding: 20px;
+    animation: fadeIn 1.2s ease;
 }
 
-/* === STATISTIKOS KORTELĖS (tamsesnė bordo) === */
+/* === PERMATOMOS KORTELĖS (PRADŽIA) === */
 .card {
-    background: #3a0010 !important; /* tamsesnė bordo */
-    color: #FFFFFF !important;
+    background: rgba(10, 10, 25, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
     border-radius: 14px !important;
-    border: none !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25) !important;
-    padding: 25px !important;
-    transition: 0.3s ease !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    transition: 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-6px) !important;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.35) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
 }
 
-/* Kad statistikos kortelių nuorodos neištemptų stulpelių */
-.stat-link {
-    display: block;
-    text-decoration: none;
+/* === PERMATOMOS LENTELĖS (KAIP NAVBARAS) === */
+table.glass-table,
+table.glass-table * {
+    background: transparent !important;
 }
 
-/* === IKONOS KORTELĖSE === */
-.card i {
-    color: #FEA116 !important; /* auksinė */
-    font-size: 36px !important;
+table.glass-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(10, 10, 25, 0.45) !important;
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
-/* === LENTELIŲ BORDO RĖMELIS === */
-.table {
-    border: 2px solid #3a0010 !important; /* bordo rėmelis */
-    border-radius: 10px !important;
-    overflow: hidden; /* kad kampai būtų apvalūs */
+table.glass-table th {
+    background: rgba(10, 10, 25, 0.75) !important;
+    color: #7dd3fc !important;
+    font-weight: 600;
+    padding: 14px;
 }
 
-/* Lentelės viršutinė juosta (thead) */
-.table thead {
-    background-color: #3a0010 !important; /* bordo */
+table.glass-table td {
+    padding: 14px;
     color: #ffffff !important;
 }
 
-/* Eilučių hover efektas */
-.table tbody tr:hover {
-    background-color: rgba(254, 161, 22, 0.1) !important; /* auksinis švytėjimas */
+table.glass-table tbody tr:hover {
+    background: rgba(125, 211, 252, 0.08) !important;
 }
 
-/* === BESISUKANTIS AUTOMOBILIO RATO PAVEIKSLIUKAS === */
-.rotating-wheel {
-    width: 180px;
-    height: 180px;
-    margin: 40px auto;
-    display: block;
-    animation: spin 3s linear infinite;
+/* === LENTELIŲ NUORODOS === */
+.table-link {
+    color: #7dd3fc !important;
+    font-weight: 600;
 }
 
+.table-link:hover {
+    color: #a5f3fc !important;
+    text-shadow: 0 0 8px rgba(125, 211, 252, 0.8);
+}
+
+/* === PUSLAPIAVIMAS (KAIP NAVBARAS) === */
+.page-link {
+    background: rgba(10, 10, 25, 0.45) !important;
+    color: #7dd3fc !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px);
+}
+
+.page-link:hover {
+    background: rgba(10, 10, 25, 0.7) !important;
+    color: #a5f3fc !important;
+}
+
+.page-item.active .page-link {
+    background: rgba(10, 10, 25, 0.85) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+/* === SUKIMOSI ANIMACIJA === */
 @keyframes spin {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
+}
+
+/* === FADE-IN === */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.dropdown-menu {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.25s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
 }

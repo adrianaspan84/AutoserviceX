@@ -4,8 +4,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include("autoservice.urls")),
+    path('admin/', admin.site.urls),
+
+    # Mūsų aplikacija
+    path('', include('autoservice.urls')),
+
+    # VISI Django auth URL’ai vienoje vietoje
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
