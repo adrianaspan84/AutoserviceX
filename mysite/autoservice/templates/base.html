@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="lt" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Autoservisas{% endblock %}</title>
@@ -15,61 +15,93 @@
 
 <body>
 
-<!-- Bootstrap JS (dropdown veikimui būtinas) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Aurora Background -->
 <canvas id="auroraCanvas"></canvas>
 
-<nav class="glass-nav">
-    <img src="{% static 'img/wheel.png' %}" class="nav-wheel" alt="logo">
+<nav class="glass-nav d-flex align-items-center justify-content-between">
 
-    <a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Pradžia</a>
-    <a class="{% if '/automobiliai' in request.path %}active{% endif %}" href="{% url 'automobiliai' %}">Automobiliai</a>
-    <a class="{% if '/uzsakymai' in request.path %}active{% endif %}" href="{% url 'uzsakymai' %}">Užsakymai</a>
-    <a class="{% if '/services' in request.path %}active{% endif %}" href="{% url 'services' %}">Paslaugos</a>
-
-    <div class="ms-auto d-flex align-items-center">
+    <!-- Kairė pusė: tik Pradžia -->
+    <div class="d-flex align-items-center gap-3">
+        <a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Pradžia</a>
 
         {% if user.is_authenticated %}
+            <a class="{% if '/automobiliai' in request.path %}active{% endif %}" href="{% url 'automobiliai' %}">Automobiliai</a>
+            <a class="{% if '/uzsakymai' in request.path %}active{% endif %}" href="{% url 'uzsakymai' %}">Užsakymai</a>
+        {% endif %}
 
+        <a class="{% if '/services' in request.path %}active{% endif %}" href="{% url 'services' %}">Paslaugos</a>
+    </div>
+
+    <!-- Dešinė pusė -->
+    <div class="d-flex align-items-center gap-3">
+
+        <!-- Dark/Light -->
+        <button class="btn btn-sm btn-outline-light" id="themeToggle">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+
+        {% if user.is_authenticated %}
         <div class="dropdown">
-            <a class="d-flex align-items-center text-light dropdown-toggle"
-               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-               style="text-decoration:none; cursor:pointer;">
+            <a class="d-flex align-items-center text-light dropdown-toggle user-dropdown-toggle"
+               href="#" role="button" data-bs-toggle="dropdown">
 
-                <!-- Standartinė Bootstrap user ikona -->
-                <i class="fa-solid fa-circle-user"
-                   style="font-size: 28px; margin-right: 8px;"></i>
+                <img src="{% static 'img/avatar-placeholder.png' %}"
+                     class="rounded-circle me-2"
+                     style="width: 32px; height: 32px; object-fit: cover;">
 
-                {{ user.username }}
+                <span>{{ user.username }}</span>
+
+                {% if user.is_superuser %}
+                    <span class="badge bg-danger ms-2">Admin</span>
+                {% elif user.is_staff %}
+                    <span class="badge bg-warning text-dark ms-2">Darbuotojas</span>
+                {% else %}
+                    <span class="badge bg-secondary ms-2">Vartotojas</span>
+                {% endif %}
             </a>
 
-            <ul class="dropdown-menu dropdown-menu-end glass-card p-2" style="min-width: 180px;">
+            <ul class="dropdown-menu dropdown-menu-end glass-card p-2 animated-dropdown">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Profilis</a></li>
                 <li><a class="dropdown-item" href="{% url 'password_change' %}">Keisti slaptažodį</a></li>
                 <li><hr class="dropdown-divider"></li>
-
-                <!-- 🔥 NAUJAS VEIKIANTIS LOGOUT -->
-               <li><a class="dropdown-item text-danger" href="/logout/">Atsijungti</a></li>
-
+                <li><a class="dropdown-item text-danger" href="/logout/">Atsijungti</a></li>
             </ul>
         </div>
 
         {% else %}
-
-        <a class="{% if '/accounts/login' in request.path %}active{% endif %}" href="{% url 'login' %}">
-            Prisijungti
-        </a>
-
+            <a class="{% if '/accounts/login' in request.path %}active{% endif %}" href="{% url 'login' %}">
+                Prisijungti
+            </a>
         {% endif %}
-    </div>
 
+        <!-- Burger (tik mobilus) -->
+        <button class="nav-burger d-lg-none" id="navBurger">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
 </nav>
+
+<!-- Toast konteineris -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="toast text-bg-info border-0 mb-2">
+                <div class="d-flex">
+                    <div class="toast-body">{{ message }}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                            data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 
 <main class="content container">
     {% block content %}{% endblock %}
 </main>
 
+<script src="{% static 'js/ui.js' %}"></script>
 <script src="{% static 'js/aurora.js' %}"></script>
 <script src="{% static 'js/cars.js' %}"></script>
 

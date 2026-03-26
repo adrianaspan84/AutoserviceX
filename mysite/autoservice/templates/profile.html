@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profilis{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 glass-card p-4 d-flex">
+
+            <div class="me-4 d-flex flex-column align-items-center">
+                <img src="{{ profile.avatar.url }}"
+                     class="rounded-circle mb-3"
+                     style="width: 96px; height: 96px; object-fit: cover;">
+
+                <span class="fw-bold">{{ user.username }}</span>
+
+                {% if user.is_superuser %}
+                    <span class="badge bg-danger mt-2">Administratorius</span>
+                {% elif user.is_staff %}
+                    <span class="badge bg-warning text-dark mt-2">Darbuotojas</span>
+                {% else %}
+                    <span class="badge bg-secondary mt-2">Vartotojas</span>
+                {% endif %}
+
+                <a href="{% url 'edit_profile' %}" class="btn btn-primary btn-sm mt-3">
+                    Redaguoti profilį
+                </a>
+            </div>
+
+            <div>
+                <h4 class="mb-3">Apie mane</h4>
+                <p>{{ profile.bio|default:"Nėra aprašymo" }}</p>
+
+                <h4 class="mt-4 mb-2">Paskyros informacija</h4>
+                <p><strong>El. paštas:</strong> {{ user.email|default:"Nenurodytas" }}</p>
+                <p><strong>Vardas:</strong> {{ user.first_name|default:"-" }}</p>
+                <p><strong>Pavardė:</strong> {{ user.last_name|default:"-" }}</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

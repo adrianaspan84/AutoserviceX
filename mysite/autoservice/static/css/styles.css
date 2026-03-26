@@ -173,3 +173,73 @@ table.glass-table tbody tr:hover {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Burger mygtukas */
+.nav-burger {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+}
+
+/* Desktop */
+.nav-links {
+    gap: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 991.98px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 10px;
+        left: 10px;
+        flex-direction: column;
+        background: rgba(10, 10, 20, 0.9);
+        padding: 1rem;
+        border-radius: 12px;
+        display: none;
+    }
+    .nav-links.nav-open {
+        display: flex;
+    }
+}
+
+/* Dark režimas */
+html[data-theme="dark"] body {
+    background-color: #020617;
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .glass-card,
+html[data-theme="dark"] .glass-nav {
+    background: rgba(20, 20, 40, 0.55);
+    color: #f8fafc;
+}
+
+/* Light režimas */
+html[data-theme="light"] body {
+    background-color: #f5f5f5;
+    color: #111;
+}
+
+html[data-theme="light"] .glass-card,
+html[data-theme="light"] .glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    color: #111;
+}
+
+}
+
+/* Animated dropdown */
+.animated-dropdown {
+    transform-origin: top right;
+    transform: scaleY(0.8);
+    opacity: 0;
+    transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+}
+
+.dropdown-menu.show.animated-dropdown {
+    transform: scaleY(1);
+    opacity: 1;
+}
