@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center mb-4">Mano užsakymai</h1>
+
+{% if orders %}
+<div class="table-responsive fade-in">
+<table class="table glass-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Automobilis</th>
+            <th>Data</th>
+            <th>Grąžinimo data</th>
+            <th>Statusas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+    <tr class="{% if order.is_overdue %}overdue-row{% endif %}">
+    <td>{{ order.id }}</td>
+    <td>{{ order.car }}</td>
+    <td>{{ order.date }}</td>
+    <td>{{ order.return_date }}</td>
+    <td>{{ order.status }}</td>
+    <td>
+        <a href="{% url 'uzsakymas' order.id %}" class="btn btn-primary btn-sm">Peržiūrėti</a>
+    </td>
+</tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-white text-center ">Neturite jokių užsakymų.</p>
+{% endif %}
+
+{% endblock %}

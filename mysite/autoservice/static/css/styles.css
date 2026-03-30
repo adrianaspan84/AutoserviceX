@@ -260,4 +260,11 @@ html[data-theme="light"] .glass-nav {
     margin-bottom: 20px;
 }
 
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.btn-glass {
+    color: white !important;
+}
 

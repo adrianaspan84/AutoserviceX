@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Naujas užsakymas{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mb-4 fade-in" style="font-size: 48px;">Naujas užsakymas</h1>
+
+<div class="card p-4 fade-in" style="max-width: 700px; margin: auto;">
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Automobilis</label>
+            <select name="car" class="form-select glass-input" required>
+                <option value="">Pasirinkite automobilį...</option>
+                {% for car in cars %}
+                    <option value="{{ car.id }}">{{ car.make }} {{ car.model }} ({{ car.license_plate }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Data</label>
+            <input type="date" name="date" class="form-control glass-input" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Grąžinimo data</label>
+            <input type="date" name="return_date" class="form-control glass-input">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Aprašymas</label>
+            <textarea name="description" class="form-control tinymce"></textarea>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'uzsakymai' %}" class="btn btn-outline-secondary">← Atgal</a>
+            <button type="submit" class="btn btn-primary px-4">Sukurti</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

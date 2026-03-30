@@ -19,69 +19,104 @@
 
 <canvas id="auroraCanvas"></canvas>
 
-<nav class="glass-nav d-flex align-items-center justify-content-between">
+<nav class="navbar navbar-expand-lg glass-nav">
+    <div class="container-fluid">
 
-    <!-- Kairė pusė: tik Pradžia -->
-    <div class="d-flex align-items-center gap-3">
-        <a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Pradžia</a>
-
-        {% if user.is_authenticated %}
-            <a class="{% if '/automobiliai' in request.path %}active{% endif %}" href="{% url 'automobiliai' %}">Automobiliai</a>
-            <a class="{% if '/uzsakymai' in request.path %}active{% endif %}" href="{% url 'uzsakymai' %}">Užsakymai</a>
-        {% endif %}
-
-        <a class="{% if '/services' in request.path %}active{% endif %}" href="{% url 'services' %}">Paslaugos</a>
-    </div>
-
-    <!-- Dešinė pusė -->
-    <div class="d-flex align-items-center gap-3">
-
-        <!-- Dark/Light -->
-        <button class="btn btn-sm btn-outline-light" id="themeToggle">
-            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        <!-- Bootstrap burger -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
-        {% if user.is_authenticated %}
-        <div class="dropdown">
-            <a class="d-flex align-items-center text-light dropdown-toggle user-dropdown-toggle"
-               href="#" role="button" data-bs-toggle="dropdown">
+        <!-- Meniu blokas -->
+        <div class="collapse navbar-collapse" id="mainMenu">
 
-                <img src="{% static 'img/avatar-placeholder.png' %}"
-                     class="rounded-circle me-2"
-                     style="width: 32px; height: 32px; object-fit: cover;">
+            <!-- Kairė pusė -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <span>{{ user.username }}</span>
+                <!-- AUTOSERVISAS (vietoje Pradžia) -->
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}"
+                       href="{% url 'index' %}">Autoservisas</a>
+                </li>
 
-                {% if user.is_superuser %}
-                    <span class="badge bg-danger ms-2">Admin</span>
-                {% elif user.is_staff %}
-                    <span class="badge bg-warning text-dark ms-2">Darbuotojas</span>
-                {% else %}
-                    <span class="badge bg-secondary ms-2">Vartotojas</span>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/automobiliai' in request.path %}active{% endif %}"
+                           href="{% url 'automobiliai' %}">Automobiliai</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/uzsakymai' in request.path %}active{% endif %}"
+                           href="{% url 'uzsakymai' %}">Užsakymai</a>
+                    </li>
                 {% endif %}
-            </a>
 
-            <ul class="dropdown-menu dropdown-menu-end glass-card p-2 animated-dropdown">
-                <li><a class="dropdown-item" href="{% url 'profile' %}">Profilis</a></li>
-                <li><a class="dropdown-item" href="{% url 'user_orders' %}">Mano užsakymai</a></li>
-                <li><a class="dropdown-item" href="{% url 'password_change' %}">Keisti slaptažodį</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="/logout/">Atsijungti</a></li>
+                <li class="nav-item">
+                    <a class="nav-link {% if '/services' in request.path %}active{% endif %}"
+                       href="{% url 'services' %}">Paslaugos</a>
+                </li>
+
             </ul>
+
+            <!-- Dešinė pusė -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
+
+                <!-- Dark/Light -->
+                <li class="nav-item me-2">
+                    <button class="btn btn-sm btn-outline-light" id="themeToggle">
+                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+                    </button>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <!-- Vartotojo dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center text-light"
+                           href="#" role="button" data-bs-toggle="dropdown">
+
+                            <img src="{% static 'img/avatar-placeholder.png' %}"
+                                 class="rounded-circle me-2"
+                                 style="width: 32px; height: 32px; object-fit: cover;">
+
+                            {{ user.username }}
+
+                            {% if user.is_superuser %}
+                                <span class="badge bg-danger ms-2">Admin</span>
+                            {% elif user.is_staff %}
+                                <span class="badge bg-warning text-dark ms-2">Darbuotojas</span>
+                            {% else %}
+                                <span class="badge bg-secondary ms-2">Vartotojas</span>
+                            {% endif %}
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end glass-card p-2">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profilis</a></li>
+                            <li><a class="dropdown-item" href="{% url 'user_orders' %}">Mano užsakymai</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_change' %}">Keisti slaptažodį</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="/logout/">Atsijungti</a></li>
+                        </ul>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/accounts/login' in request.path %}active{% endif %}"
+                           href="{% url 'login' %}">Prisijungti</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/signup' in request.path %}active{% endif %}"
+                           href="{% url 'signup' %}">Registruotis</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+
         </div>
-
-        {% else %}
-            <a class="{% if '/accounts/login' in request.path %}active{% endif %}" href="{% url 'login' %}">
-                Prisijungti
-            </a>
-        {% endif %}
-
-        <!-- Burger (tik mobilus) -->
-        <button class="nav-burger d-lg-none" id="navBurger">
-            <i class="fa-solid fa-bars"></i>
-        </button>
     </div>
 </nav>
+
+
 
 <!-- Toast konteineris -->
 <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">

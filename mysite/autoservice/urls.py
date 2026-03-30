@@ -12,11 +12,12 @@ urlpatterns = [
     path("uzsakymai/", views.OrderListView.as_view(), name="uzsakymai"),
     path("uzsakymai/<int:pk>/", views.OrderDetailView.as_view(), name="uzsakymas"),
 
+    path("signup/", views.signup, name="signup"),
     path("logout/", logout_view, name="logout"),
     path("profile/", views.profile, name="profile"),
     path("profile/edit/", views.edit_profile, name="edit_profile"),
     path("mano-uzsakymai/", views.user_orders, name="user_orders"),
-    path("uzsakymas/<int:order_id>/", views.uzsakymas, name="uzsakymas"),
 
-
+    # KOMENTARAI
+    path("uzsakymas/<int:order_id>/comment/", views.add_comment, name="add_comment"),
 ]

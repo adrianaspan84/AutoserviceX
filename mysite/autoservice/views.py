@@ -1,24 +1,60 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth import logout
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Service, Car, Order
+from .models import Service, Car
 from .decorators import login_required_message
 from .forms import ProfileForm
+from django.contrib.auth import login
+from .forms import SignupForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import DetailView
+from django.contrib import messages
+
+
+from .models import Order
+from .forms import OrderCommentForm
+
+
+
+def signup(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # automatinis prisijungimas po registracijos
+            messages.success(request, "Registracija sėkminga!")
+            return redirect("index")
+    else:
+        form = SignupForm()
+
+    return render(request, "registration/signup.html", {"form": form})
+
+
 
 @login_required
-def uzsakymas(request, order_id):
+def add_comment(request, order_id):
     order = get_object_or_404(Order, id=order_id)
 
-    # apsauga: vartotojas gali matyti tik savo užsakymus
-    if not request.user.is_staff and order.user != request.user:
-        return redirect("user_orders")
+    if request.method == "POST":
+        form = OrderCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.order = order
+            comment.user = request.user
+            comment.save()
+            messages.success(request, "Komentaras pridėtas!")
+            return redirect("uzsakymas", pk=order_id)
+        else:
+            # forma neteisinga → parodyti klaidas tame pačiame puslapyje
+            return render(request, "uzsakymas.html", {
+                "order": order,
+                "form": form,
+            })
 
-    return render(request, "uzsakymas.html", {"order": order})
+    return redirect("uzsakymas", pk=order_id)
 
 @login_required
 def user_orders(request):
@@ -104,12 +140,12 @@ class OrderListView(LoginRequiredMixin, generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class OrderDetailView(LoginRequiredMixin, generic.DetailView):
+class OrderDetailView(DetailView):
     model = Order
     template_name = "uzsakymas.html"
-    context_object_name = "order"
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.info(request, "Informacija bus pasiekiama po prisijungimo.")
-        return super().dispatch(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = OrderCommentForm()  # ← ŠITA EILUTĖ YRA PRIVALOMA
+        return context
+

@@ -5,6 +5,7 @@ from tinymce.models import HTMLField
 
 
 
+
 def user_avatar_path(instance, filename):
     return f"avatars/user_{instance.user.id}/{filename}"
 
@@ -90,7 +91,9 @@ class Order(models.Model):
         return f"Užsakymas #{self.id} – {self.car}"
 
     def is_overdue(self):
-        return self.deadline < timezone.now()
+        if self.return_date:
+            return timezone.now().date() > self.return_date
+        return False
 # -------------------------
 # UŽSAKYMO EILUTĖ
 # -------------------------
@@ -132,3 +135,29 @@ class OrderLine(models.Model):
 
     def __str__(self):
         return f"{self.service.name} × {self.quantity}"
+
+# -------------------------
+# KOMENTARAS PRIE UŽSAKYMO
+# -------------------------
+class OrderComment(models.Model):
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name="comments",
+        verbose_name="Užsakymas"
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Vartotojas"
+    )
+    text = models.TextField(verbose_name="Komentaras")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Komentaras"
+        verbose_name_plural = "Komentarai"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Komentaras #{self.id} prie užsakymo {self.order.id}"
