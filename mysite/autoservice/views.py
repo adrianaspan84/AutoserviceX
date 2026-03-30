@@ -10,6 +10,21 @@ from .models import Service, Car, Order
 from .decorators import login_required_message
 from .forms import ProfileForm
 
+@login_required
+def uzsakymas(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+
+    # apsauga: vartotojas gali matyti tik savo užsakymus
+    if not request.user.is_staff and order.user != request.user:
+        return redirect("user_orders")
+
+    return render(request, "uzsakymas.html", {"order": order})
+
+@login_required
+def user_orders(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, "user_orders.html", {"orders": orders})
+
 def logout_view(request):
     logout(request)
     return redirect('/')

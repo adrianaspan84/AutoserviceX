@@ -21,18 +21,18 @@
 
     <tbody>
     {% for order in orders %}
-        <tr>
-            <td>
-                <a href="{% url 'uzsakymas' order.id %}" class="table-link">
-                    #{{ order.id }}
-                </a>
-            </td>
+          <tr class="{% if order.is_overdue %}overdue-row{% endif %}">
+    <td>
+        <a href="{% url 'uzsakymas' order.id %}" class="table-link">
+            #{{ order.id }}
+        </a>
+    </td>
+    <td>{{ order.car }}</td>
+    <td>{{ order.date }}</td>
+    <td>{{ order.get_status_display }}</td>
+    <td>{{ order.total }}</td>
+</tr>
 
-            <td>{{ order.car }}</td>
-            <td>{{ order.date }}</td>
-            <td>{{ order.get_status_display }}</td>
-            <td>{{ order.total }}</td>
-        </tr>
     {% endfor %}
     </tbody>
 </table>

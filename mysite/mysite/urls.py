@@ -11,6 +11,7 @@ urlpatterns = [
 
     # VISI Django auth URL’ai vienoje vietoje
     path('accounts/', include('django.contrib.auth.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:

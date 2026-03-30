@@ -1,6 +1,9 @@
 from django.db import models
-from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+from tinymce.models import HTMLField
+
+
 
 def user_avatar_path(instance, filename):
     return f"avatars/user_{instance.user.id}/{filename}"
@@ -41,6 +44,7 @@ class Car(models.Model):
     vin_code = models.CharField(verbose_name="VIN kodas", max_length=50)
     client_name = models.CharField(verbose_name="Klientas", max_length=200)
     photo = models.ImageField(upload_to="car_photos/", null=True, blank=True, verbose_name="Nuotrauka")
+    description = HTMLField("Aprašymas", blank=True, null=True)
 
     class Meta:
         verbose_name = "Automobilis"
@@ -60,9 +64,12 @@ class Order(models.Model):
         ("baigtas", "Baigtas"),
         ("atsauktas", "Atšauktas"),
     ]
-
+    user = models.ForeignKey(to=User,
+                               on_delete=models.SET_NULL,
+                               null=True, blank=True)
     date = models.DateField(verbose_name="Data")
     car = models.ForeignKey("Car", verbose_name="Automobilis", on_delete=models.CASCADE)
+    return_date = models.DateField(null=True, blank=True)
     status = models.CharField(
         verbose_name="Statusas",
         max_length=20,
@@ -82,7 +89,8 @@ class Order(models.Model):
     def __str__(self):
         return f"Užsakymas #{self.id} – {self.car}"
 
-
+    def is_overdue(self):
+        return self.deadline < timezone.now()
 # -------------------------
 # UŽSAKYMO EILUTĖ
 # -------------------------
